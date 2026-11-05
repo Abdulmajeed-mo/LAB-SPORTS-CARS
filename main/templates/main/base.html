@@ -1,0 +1,152 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}The Crown Collection{% endblock %}</title>
+
+<script>
+    if (localStorage.getItem("theme") === "dark") {
+        document.documentElement.classList.add("dark");
+    }
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Phudu:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="{% static 'main/css/output.css' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet">
+</head>
+<body>
+    
+
+<header class="sticky top-0 z-50 border-b border-[#B99A62]/30 bg-[#F4F0E8] text-[#111418] dark:bg-[#111418] dark:text-[#F4F0E8]">
+    <nav class="mx-auto flex min-h-20 max-w-7xl items-center justify-between gap-5 px-5 lg:px-10">
+
+        <a href="{% url 'main:home' %}" class="flex items-center gap-2 font-['Phudu'] text-sm tracking-wider sm:text-lg">
+            <span class="material-symbols-outlined text-3xl text-[#B99A62]">workspace_premium</span>
+            <span>THE CROWN <strong class="text-[#B99A62]">COLLECTION</strong></span>
+        </a>
+
+        <div id="navLinks" class="hidden items-center gap-8 md:flex">
+            <a href="{% url 'main:home' %}" class="text-sm font-semibold transition hover:text-[#B99A62]">Home</a>
+            <a href="{% url 'cars:all_cars' %}" class="text-sm font-semibold transition hover:text-[#B99A62]">Our Cars</a>
+            <a href="{% url 'main:about' %}" class="text-sm font-semibold transition hover:text-[#B99A62]">About Us</a>
+        </div>
+
+        <div class="flex items-center gap-2 sm:gap-4">
+            <div id="searchBox" class="flex items-center">
+                <input id="searchInput" type="search" placeholder="Search cars..."
+                    class="hidden w-32 rounded border border-[#B99A62] bg-transparent px-2 py-1 text-sm outline-none sm:w-40">
+                <button id="searchToggle" type="button" aria-label="Search" class="transition hover:text-[#B99A62]">
+                    <span class="material-symbols-outlined">search</span>
+                </button>
+            </div>
+
+            <button type="button" aria-label="Profile" class="transition hover:text-[#B99A62]">
+                <span class="material-symbols-outlined">person</span>
+            </button>
+
+            <button id="themeToggle" type="button" aria-label="Toggle theme" class="transition hover:text-[#B99A62]">
+                <span class="material-symbols-outlined">dark_mode</span>
+            </button>
+
+            <button id="menuToggle" type="button" aria-label="Toggle menu" aria-expanded="false"
+                class="md:hidden">
+                <span class="material-symbols-outlined">menu</span>
+            </button>
+        </div>
+    </nav>
+
+    <div id="mobileMenu" class="hidden border-t border-[#B99A62]/30 px-6 py-5 md:hidden">
+        <div class="flex flex-col gap-5">
+            <a href="{% url 'main:home' %}">Home</a>
+            <a href="{% url 'cars:all_cars' %}">Our Cars</a>
+            <a href="{% url 'main:about' %}">About Us</a>
+        </div>
+    </div>
+</header>
+
+
+
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+
+    
+<footer class="border-t border-[#B99A62]/40 bg-[#111418] px-6 pt-16 pb-6 text-[#F4F0E8] lg:px-12">
+    <div class="mx-auto grid max-w-7xl grid-cols-1 gap-12 sm:grid-cols-2 lg:grid-cols-4">
+
+        <div class="space-y-5">
+            <h2 class="font-['Phudu'] text-2xl font-semibold tracking-wide text-[#B99A62]">
+                THE CROWN COLLECTION
+            </h2>
+            <p class="text-sm font-medium">Timeless Heritage. Modern Prestige.</p>
+            <p class="text-sm leading-7 text-gray-400">
+                Discover the finest expression of Japanese automotive luxury.
+            </p>
+
+            <div class="flex gap-3">
+                <a href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer"
+                   aria-label="Instagram"
+                   class="flex h-10 w-10 items-center justify-center rounded-full border border-[#B99A62] text-xs transition hover:bg-[#B99A62] hover:text-[#111418]">
+                    IG
+                </a>
+                <a href="https://www.youtube.com/" target="_blank" rel="noopener noreferrer"
+                   aria-label="YouTube"
+                   class="flex h-10 w-10 items-center justify-center rounded-full border border-[#B99A62] text-xs transition hover:bg-[#B99A62] hover:text-[#111418]">
+                    YT
+                </a>
+            </div>
+        </div>
+
+        <div>
+            <h3 class="mb-6 font-['Phudu'] text-lg">Quick Links</h3>
+            <div class="flex flex-col gap-4 text-sm text-gray-400">
+                <a href="{% url 'main:home' %}" class="transition hover:text-[#B99A62]">Home</a>
+                <a href="{% url 'cars:all_cars' %}" class="transition hover:text-[#B99A62]">Our Cars</a>
+                <a href="{% url 'main:about' %}" class="transition hover:text-[#B99A62]">About Us</a>
+            </div>
+        </div>
+
+        <div>
+            <h3 class="mb-6 font-['Phudu'] text-lg">Support</h3>
+            <div class="flex flex-col gap-4 text-sm text-gray-400">
+                <a href="#" class="transition hover:text-[#B99A62]">Contact Us</a>
+                <a href="#" class="transition hover:text-[#B99A62]">FAQs</a>
+                <a href="#" class="transition hover:text-[#B99A62]">Privacy Policy</a>
+                <a href="#" class="transition hover:text-[#B99A62]">Terms & Conditions</a>
+            </div>
+        </div>
+
+        <div>
+            <h3 class="mb-6 font-['Phudu'] text-lg">Stay Connected</h3>
+            <p class="mb-5 text-sm leading-7 text-gray-400">
+                Receive the latest news from our collection.
+            </p>
+
+            <form id="newsletterForm" class="flex overflow-hidden rounded-md border border-gray-600">
+                <input type="email" required aria-label="Email address"
+                       placeholder="Your email address"
+                       class="min-w-0 flex-1 bg-transparent px-3 py-3 text-sm text-white outline-none placeholder:text-gray-500">
+                <button type="submit" aria-label="Subscribe"
+                        class="bg-[#B99A62] px-4 text-[#111418] transition hover:bg-[#d2b580]">
+                    <span class="material-symbols-outlined">arrow_forward</span>
+                </button>
+            </form>
+            <p id="newsletterMessage" class="mt-3 text-sm text-[#B99A62]" aria-live="polite"></p>
+        </div>
+    </div>
+
+    <div class="mx-auto mt-14 flex max-w-7xl flex-col justify-between gap-3 border-t border-white/15 pt-6 text-center text-xs text-gray-400 md:flex-row md:text-left">
+        <p>© 2026 The Crown Collection. All rights reserved.</p>
+        <p>Crafted with Japanese Elegance.</p>
+    </div>
+</footer>
+
+
+    <script src="{% static 'main/js/main.js' %}"></script>
+</body>
+</html>

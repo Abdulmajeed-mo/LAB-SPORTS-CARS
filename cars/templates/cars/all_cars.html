@@ -1,0 +1,85 @@
+
+{% extends "main/base.html" %}
+{% load static %}
+
+{% block title %}Our Cars | The Crown Collection{% endblock %}
+
+{% block content %}
+
+<section class="bg-[#263D46] px-6 py-20 text-center text-[#F4F0E8] lg:py-28">
+    <p class="mb-4 text-xs font-semibold tracking-[0.3em] text-[#B99A62] uppercase">
+        The Crown Collection
+    </p>
+
+    <h1 class="font-['Phudu'] text-5xl font-semibold sm:text-6xl">
+        OUR <span class="text-[#B99A62]">COLLECTION</span>
+    </h1>
+
+    <p class="mx-auto mt-6 max-w-xl text-sm leading-7 text-gray-300">
+        Explore a curated selection of Japanese luxury,
+        where timeless craftsmanship meets modern prestige.
+    </p>
+</section>
+
+<section class="bg-[#F4F0E8] px-6 py-20 text-[#111418] lg:px-12">
+    <div class="mx-auto max-w-7xl">
+
+        <div class="mb-10 flex flex-wrap items-center justify-between gap-4 border-b border-[#B99A62]/30 pb-6">
+            <div>
+                <p class="text-sm text-gray-600">
+                    Showing our exclusive selection
+                </p>
+                <h2 class="mt-2 font-['Phudu'] text-2xl font-semibold">
+                    {{ cars|length }} Cars Found
+                </h2>
+            </div>
+
+            <span class="inline-flex items-center gap-2 rounded-md border border-[#B99A62] px-5 py-3 text-sm font-medium">
+                <span class="material-symbols-outlined text-[#B99A62]">verified</span>
+                Premium Collection
+            </span>
+        </div>
+
+        <div class="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
+
+            {% for car in cars %}
+            <article class="group overflow-hidden rounded-xl border border-[#B99A62]/20 bg-white shadow-sm transition duration-300 hover:-translate-y-2 hover:shadow-xl">
+
+                <div class="overflow-hidden bg-white">
+                    <img src="{% static car.image %}"
+                         alt="{{ car.name }}"
+                         class="h-64 w-full object-contain transition duration-500 group-hover:scale-105"
+                         loading="lazy">
+                </div>
+
+                <div class="p-7">
+                    <p class="mb-3 text-xs font-semibold tracking-widest text-[#B99A62] uppercase">
+                        {{ car.category }}
+                    </p>
+
+                    <h3 class="font-['Phudu'] text-2xl font-semibold">
+                        {{ car.name }}
+                    </h3>
+
+                    <p class="mt-4 min-h-12 text-sm leading-6 text-gray-600">
+                        {{ car.description }}
+                    </p>
+
+                    <a href="{% url 'cars:car_detail' car.id %}"
+                       class="mt-7 inline-flex items-center gap-2 font-semibold text-[#263D46] transition hover:text-[#B99A62]">
+                        View Details
+                        <span class="material-symbols-outlined">arrow_forward</span>
+                    </a>
+                </div>
+            </article>
+            {% empty %}
+            <p class="col-span-full py-12 text-center text-gray-600">
+                No cars available at the moment.
+            </p>
+            {% endfor %}
+
+        </div>
+    </div>
+</section>
+
+{% endblock %}
