@@ -1,35 +1,25 @@
 
-from django.shortcuts import render, get_object_or_404
+import json
+from pathlib import Path
+
 from django.http import Http404
-cars = [
-    {
-        "id": 1,
-        "name": "Toyota Crown Sedan",
-        "category": "Modern Luxury",
-        "description": "A masterpiece of contemporary Japanese elegance.",
-        "image": "main/images/crown-sedan-hero.webp",
-    },
-    {
-        "id": 2,
-        "name": "Toyota Century G50",
-        "category": "Royal Heritage",
-        "description": "An enduring symbol of Japanese royal craftsmanship.",
-        "image": "main/images/century-g50-heritage.webp",
-    },
-    {
-        "id": 3,
-        "name": "Toyota Crown Premium",
-        "category": "Premium Edition",
-        "description": "Sophisticated design with exceptional everyday comfort.",
-        "image": "main/images/crown-premium.webp",
-    },
-]
+from django.shortcuts import render
+
+
+DATA_FILE = Path(__file__).resolve().parent / "data" / "cars.json"
+
+with DATA_FILE.open(encoding="utf-8") as file:
+    cars = json.load(file)
 
 
 def all_cars(request):
-    context = {"cars": cars}
-    return render(request, "cars/all_cars.html", context)
+    return render(request, "cars/all_cars.html", {"cars": cars})
 
 
 def car_detail(request, car_id):
-    return render(request, "cars/car_detail.html")
+    car = next((item for item in cars if item["id"] == car_id), None)
+
+    if car is None:
+        raise Http404("Car not found")
+
+    return render(request, "cars/car_detail.html", {"car": car})
